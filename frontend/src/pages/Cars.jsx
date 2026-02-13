@@ -9,7 +9,7 @@ const Cars = () => {
   return (
     <div>
       <div className='flex flex-col items-center py-20 bg-light max-md:px-4'>
-        <Title title="Availble Cars" subTitle="Browse cars to rent here"/>
+        <Title title="Available Cars" subTitle="Browse cars to rent here"/>
 
         <div className='flex items-center bg-white px-4 mt-6 max-w-240 w-full h-12 rounded-full shadow'>
           <img src={assets.search_icon} alt="" className='h-4.5 w-4.5 mr-2'/>
