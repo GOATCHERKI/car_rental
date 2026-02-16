@@ -14,7 +14,7 @@ const Navbar = ({setShowLogin}) => {
     py-4 text-gray-600 border-b border-border relative transition-all
     ${location.pathname === "/" && "bg-light"}  `}>     
         <Link to='/'>
-            <img src={assets.logo} alt="Logo" className='h-8'/>
+            <img src={assets.logo} alt="Logo" className='h-10'/>
         </Link>
 
         <div className={`max-sm:fixed max-sm:h-screen max-sm:w-full max-sm:top-16

@@ -6,7 +6,7 @@ const Footer = () => {
         <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-600'>
             <div className='flex flex-wrap justify-between items-start gap-8 pb-6 border-border border-b'>
                 <div>
-                    <img src={assets.logo} alt="logo" className='h-8 md:h-9' />
+                    <img src={assets.logo} alt="logo" className='h-10 md:h-11' />
                     <p className='max-w-80 mt-3'>
                         Professional Car Rental service, with secure payment and verifications.
                     </p>
