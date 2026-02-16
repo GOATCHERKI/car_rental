@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
     role: { type: String, enum: ["owner", "user"], default: "user" },
     image: { type: String, default: "" },
   },
-  { timestamp: true },
+  { timestamps: true },
 );
 
 const User = mongoose.model("User", userSchema);

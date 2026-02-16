@@ -34,7 +34,7 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.password;
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -47,6 +47,16 @@ export const loginUser = async (req, res) => {
     }
     const token = generateToken(user._id.toString());
     res.json({ success: true, token });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+export const getUserData = async (req, res) => {
+  try {
+    const { user } = req;
+    res.json({ succes: true, user });
   } catch (error) {
     console.log(error.message);
     return res.json({ success: false, message: error.message });
