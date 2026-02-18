@@ -16,7 +16,7 @@ export const checkCarAvailability = async (req, res) => {
 
     const cars = await Car.find({ location, isAvailable: true });
 
-    const availableCarsPromises = car.map(async (car) => {
+    const availableCarsPromises = cars.map(async (car) => {
       const isAvailable = await checkAvailability(
         car._id,
         pickupDate,
