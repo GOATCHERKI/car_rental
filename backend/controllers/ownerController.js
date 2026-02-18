@@ -52,3 +52,61 @@ export const getOwnerCars = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const carAvailability = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { carId } = req.body;
+    const car = await Car.find(carId);
+
+    if (car.owner.toString() !== _id.toString()) {
+      return res.json({ success: false, message: "Unautorized" });
+    }
+
+    car.isAvailable = !car.isAvailable;
+
+    await car.save();
+
+    res.jsom({ succes: true, message: "Availabilty Changed" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const deleteCar = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { carId } = req.body;
+    const car = await Car.find(carId);
+
+    if (car.owner.toString() !== _id.toString()) {
+      return res.json({ success: false, message: "Unautorized" });
+    }
+
+    car.owner = null;
+    car.isAvailable = false;
+
+    await car.save();
+
+    res.jsom({ succes: true, message: "Car Removed" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const getDashboardData = async (req, res) => {
+  try {
+    const { _id, role } = req.user;
+
+    if (role !== "owner") {
+      return res.json({ success: false, message: "Unautorized" });
+    }
+
+    const cars = await Car.find({ owner: _id });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
