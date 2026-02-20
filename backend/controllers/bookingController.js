@@ -40,7 +40,7 @@ export const createBooking = async (req, res) => {
     const { _id } = req.user;
     const { car, pickupDate, returnDate } = req.body;
 
-    const isAvailable = checkAvailability(car, pickupDate, returnDate);
+    const isAvailable = await checkAvailability(car, pickupDate, returnDate);
 
     if (!isAvailable) {
       return res.json({ success: false, message: "Car not Available" });
@@ -108,7 +108,7 @@ export const changeBookingStatus = async (req, res) => {
     const booking = await Booking.findById(bookingId);
 
     if (booking.owner.toString() !== _id.toString()) {
-      return es.json({ success: false, message: "Unauthorized" });
+      return res.json({ success: false, message: "Unauthorized" });
     }
 
     booking.status = status;

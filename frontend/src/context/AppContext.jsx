@@ -17,7 +17,7 @@ export const AppProvider = ({ children })=>{
     const [user, setUser] = useState(null)
     const [isOwner, setIsOwner] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
-    const [pickUpDate, setPickUpDate] = useState('')
+    const [pickupDate, setPickupDate] = useState('')
     const [returnDate, setReturnDate] = useState('')
 
     const [cars, setCars] = useState([])
@@ -68,7 +68,7 @@ export const AppProvider = ({ children })=>{
     },[token])
 
     const value = {
-        navigate, currency, axios, user, setUser, token, setToken, isOwner, setIsOwner, fetchUser, showLogin, setShowLogin, logout, fetchCars, cars, setCars, pickUpDate, setPickUpDate, returnDate, setReturnDate
+        navigate, currency, axios, user, setUser, token, setToken, isOwner, setIsOwner, fetchUser, showLogin, setShowLogin, logout, fetchCars, cars, setCars, pickupDate, setPickupDate, returnDate, setReturnDate
     }
 
     return (<AppContext.Provider value={value}>
