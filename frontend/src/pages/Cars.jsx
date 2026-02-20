@@ -46,6 +46,13 @@ const Cars = () => {
       }
       return null
     }
+    const filtered = cars.slice().filter((car)=>{
+      return car.brand.toLowerCase().include(input.toLowerCase())
+      ||  car.model.toLowerCase().include(input.toLowerCase())
+      ||  car.category.toLowerCase().include(input.toLowerCase())
+      ||  car.transmission.toLowerCase().include(input.toLowerCase())
+    })
+    setFilteredCars(filtered)
   }
 
   useEffect(()=>{
