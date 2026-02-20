@@ -11,7 +11,7 @@ export const changeRoleToOwner = async (req, res) => {
     res.json({ success: true, message: "You can list cars now" });
   } catch (error) {
     console.log(error.message);
-    res.json({ success: false, message: error.meddages });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -36,7 +36,7 @@ export const addCar = async (req, res) => {
     const image = optimizedImageUrl;
     await Car.create({ ...car, owner: _id, image });
 
-    res.json({ succes: true, message: "Car added" });
+    res.json({ success: true, message: "Car added" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
@@ -47,7 +47,7 @@ export const getOwnerCars = async (req, res) => {
   try {
     const { _id } = req.user;
     const cars = await Car.find({ owner: _id });
-    res.json({ succes: true, cars });
+    res.json({ success: true, cars });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
@@ -58,17 +58,17 @@ export const carAvailability = async (req, res) => {
   try {
     const { _id } = req.user;
     const { carId } = req.body;
-    const car = await Car.find(carId);
+    const car = await Car.findById(carId);
 
     if (car.owner.toString() !== _id.toString()) {
-      return res.json({ success: false, message: "Unautorized" });
+      return res.json({ success: false, message: "Unauthorized" });
     }
 
     car.isAvailable = !car.isAvailable;
 
     await car.save();
 
-    res.jsom({ succes: true, message: "Availabilty Changed" });
+    res.json({ success: true, message: "Availability Changed" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
@@ -79,10 +79,10 @@ export const deleteCar = async (req, res) => {
   try {
     const { _id } = req.user;
     const { carId } = req.body;
-    const car = await Car.find(carId);
+    const car = await Car.findById(carId);
 
     if (car.owner.toString() !== _id.toString()) {
-      return res.json({ success: false, message: "Unautorized" });
+      return res.json({ success: false, message: "Unauthorized" });
     }
 
     car.owner = null;
@@ -90,7 +90,7 @@ export const deleteCar = async (req, res) => {
 
     await car.save();
 
-    res.jsom({ succes: true, message: "Car Removed" });
+    res.json({ success: true, message: "Car Removed" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
@@ -106,7 +106,7 @@ export const getDashboardData = async (req, res) => {
     }
 
     const cars = await Car.find({ owner: _id });
-    const bookings = (await Booking.find({ owner: _id }).populate("car")).sort({
+    const bookings = await Booking.find({ owner: _id }).populate("car").sort({
       createdAt: -1,
     });
 
@@ -124,7 +124,7 @@ export const getDashboardData = async (req, res) => {
       .filter((booking) => booking.status === "confirmed")
       .reduce((acc, booking) => acc + booking.price, 0);
 
-    const getDashboardData = {
+    const dashboardData = {
       totalCars: cars.length,
       totalBookings: bookings.length,
       pendingBookings: pendingBookings.length,
@@ -132,6 +132,8 @@ export const getDashboardData = async (req, res) => {
       recentBookings: bookings.slice(0, 3),
       monthlyRevenue,
     };
+
+    res.json({ success: true, dashboardData });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
@@ -159,7 +161,7 @@ export const updateUserImage = async (req, res) => {
 
     await User.findByIdAndUpdate(_id, { image });
 
-    res.json({ succes: true, message: "Image Updated" });
+    res.json({ success: true, message: "Image Updated" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
