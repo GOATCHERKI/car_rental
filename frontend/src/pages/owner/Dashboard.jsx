@@ -12,7 +12,7 @@ const Dashboard = () => {
         totalCars: 0,
         totalBookings: 0,
         pendingBookings: 0,
-        completedBookings: 0,
+        confirmedBookings: 0,
         recentBookings: [],
         monthlyRevenue:0,
     })
@@ -21,7 +21,7 @@ const Dashboard = () => {
         {title: "Total Cars", value: data.totalCars , icon: assets.carIconColored},
         {title: "Total Bookings", value: data.totalBookings , icon: assets.listIconColored},
         {title: "Pending", value: data.pendingBookings , icon: assets.cautionIconColored},
-        {title: "Complete", value: data.completedBookings , icon: assets.listIconColored}
+        {title: "Confirmed", value: data.confirmedBookings , icon: assets.listIconColored}
     ]
 
     const fetchDashboardData = async ()=>{

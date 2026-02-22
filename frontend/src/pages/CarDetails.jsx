@@ -4,6 +4,7 @@ import { assets } from '../assets/assets'
 import Loader from '../components/Loader'
 import { useAppContext } from '../context/AppContext'
 import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const CarDetails = () => {
 
@@ -14,6 +15,22 @@ const CarDetails = () => {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
+    try {
+      const {data} = await axios.post('/api/bookings/create', {
+        car: id,
+        pickupDate,
+        returnDate
+      })
+
+      if(data.success){
+        toast.success(data.message)
+        navigate('/my-bookings')
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
   useEffect(()=>{
@@ -82,12 +99,12 @@ const CarDetails = () => {
 
                 <div className='flex flex-col gap-2'>
                   <label htmlFor="pickup-date">Pickup Date</label>
-                  <input type="date" required id='pickup-date' className='border border-border px-3 py-2 rounded-lg' min={new Date().toISOString().split('T')[0]}/>
+                  <input value={pickupDate} onChange={(e)=>setPickupDate(e.target.value)} type="date" required id='pickup-date' className='border border-border px-3 py-2 rounded-lg' min={new Date().toISOString().split('T')[0]}/>
                 </div>
 
                 <div className='flex flex-col gap-2'>
                   <label htmlFor="return-date">Return Date</label>
-                  <input type="date" required id='return-date' className='border border-border px-3 py-2 rounded-lg' min={new Date().toISOString().split('T')[0]}/>
+                  <input value={returnDate} onChange={(e)=>setReturnDate(e.target.value)} type="date" required id='return-date' className='border border-border px-3 py-2 rounded-lg' min={new Date().toISOString().split('T')[0]}/>
                 </div>    
 
                 <button className='w-full bg-primary hover:bg-secondary text-white py-3 rounded-xl transition-all cursor-pointer'>Book Now</button>           
