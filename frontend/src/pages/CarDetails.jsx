@@ -16,6 +16,15 @@ const CarDetails = () => {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
+    
+    const picked = new Date(pickupDate);
+    const returned = new Date(returnDate);
+    
+    if (returned < picked) {
+      toast.error("Return date must be after pickup date");
+      return;
+    }
+
     try {
       const {data} = await axios.post('/api/bookings/create', {
         car: id,

@@ -40,6 +40,13 @@ export const createBooking = async (req, res) => {
     const { _id } = req.user;
     const { car, pickupDate, returnDate } = req.body;
 
+    const picked = new Date(pickupDate);
+    const returned = new Date(returnDate);
+
+    if (returned < picked) {
+      return res.json({ success: false, message: "Return date must be after pickup date" });
+    }
+
     const isAvailable = await checkAvailability(car, pickupDate, returnDate);
 
     if (!isAvailable) {
@@ -48,8 +55,6 @@ export const createBooking = async (req, res) => {
 
     const carData = await Car.findById(car);
 
-    const picked = new Date(pickupDate);
-    const returned = new Date(returnDate);
     const noOfDays = Math.max(
       1,
       Math.ceil((returned - picked) / (1000 * 60 * 60 * 24)),
