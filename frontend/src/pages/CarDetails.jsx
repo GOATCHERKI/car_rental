@@ -60,8 +60,8 @@ const CarDetails = () => {
 
             <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 '> 
               {[
-                {icon: assets.users_icon, text: `${car.seating_capacity} Seats`},
-                {icon: assets.fuel_icon, text: car.fuel_type},
+                {icon: assets.users_icon, text: `${car.seats} Seats`},
+                {icon: assets.fuel_icon, text: car.fuel},
                 {icon: assets.car_icon, text: car.transmission},
                 {icon: assets.location_icon, text: car.location},
               ].map(({icon, text})=>(
