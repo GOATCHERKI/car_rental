@@ -6,6 +6,12 @@ A full-stack car rental application built with modern web technologies. This pla
 
 [car-rental-jade-rho.vercel.app](https://car-rental-jade-rho.vercel.app)
 
+### Demo Credentials
+
+**User Account:**
+- Email: `user@demo.com`
+- Password: `Demo1234`
+
 ## 📋 Project Structure
 
 ### Backend
